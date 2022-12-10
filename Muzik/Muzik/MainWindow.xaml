@@ -1,0 +1,131 @@
+<!-- Copyright (c) Microsoft Corporation and Contributors. -->
+<!-- Licensed under the MIT License. -->
+
+<Window
+    x:Class="Muzik.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Muzik"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" x:Name="AppTitlebar">
+            <TextBlock x:Name="AppTitleTextBlock" Text="Muzik"
+                       TextWrapping="NoWrap"
+                       Style="{StaticResource CaptionTextBlockStyle}"
+                       VerticalAlignment="Center"
+                       Margin="20,0,0,0"/>
+
+        </Grid>
+        
+        <Grid Grid.Row="1" Margin="40,40,40,0">
+            <TextBlock FontWeight="Bold" FontSize="36" HorizontalAlignment="Left">Daftar Putar</TextBlock>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" x:Name="TopTitle">
+                <Button HorizontalAlignment="Right" Click="SelectFileDialog">
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Symbol="Add" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <TextBlock VerticalAlignment="Center">Buka File</TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <ScrollViewer Grid.Row="2" Margin="0,20,0,0">
+            <ScrollViewer.Resources>
+                <DataTemplate x:Key="MusicItemTemplate" x:DataType="local:MusicInfo">
+                    <Button
+                        Click="PlaylistItemClick"
+                        Tag="{x:Bind Index}"
+                        HorizontalContentAlignment="Stretch"
+                        Padding="20"
+                        Margin="40,0,40,10"
+                        HorizontalAlignment="Stretch">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0.4*"/>
+                            </Grid.ColumnDefinitions>
+                            <SymbolIcon Grid.Column="0" Symbol="Play" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Column="1" Text="{x:Bind Title}" FontWeight="Bold" HorizontalAlignment="Left"/>
+                            <TextBlock Grid.Column="2" Text="{x:Bind Artist}" HorizontalAlignment="Left"/>
+                        </Grid>
+                    </Button>
+                </DataTemplate>
+            </ScrollViewer.Resources>
+
+            <ItemsRepeater
+                x:Name="PlaylistRepeater"
+                ItemTemplate="{StaticResource MusicItemTemplate}"
+                />
+        </ScrollViewer>
+        <StackPanel Grid.Row="3" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="40,20,40,40">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    x:Name="CurrentDuration"
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Text="00:00"/>
+                <Slider
+                    x:Name="SliderDuration"
+                    ValueChanged="SeekerChange"
+                    Grid.Column="1"/>
+                <TextBlock
+                    x:Name="TotalDuration"
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    TextAlignment="Right"
+                    Text="00:00"/>
+            </Grid>
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*" />
+                    <ColumnDefinition Width="0.2*" />
+                    <ColumnDefinition Width="0.4*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock
+                        x:Name="SongTitle"
+                        FontSize="24"
+                        FontWeight="Bold"
+                        Text="Tidak Memutar Lagu"
+                        TextTrimming="CharacterEllipsis"/>
+                    <TextBlock
+                        x:Name="SongArtist"
+                        Text="-"
+                        TextTrimming="CharacterEllipsis"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Button Margin="0,0,10,0" Click="PlayPrevSong">
+                        <SymbolIcon Symbol="Previous"/>
+                    </Button>
+                    <Button Click="PlayOrPause">
+                        <SymbolIcon x:Name="playButtonSymbol" Symbol="Play"/>
+                    </Button>
+                    <Button Margin="10,0,0,0" Click="PlayNextSong">
+                        <SymbolIcon Symbol="Next"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Button Click="ShowAboutMe">
+                        <SymbolIcon Symbol="ContactInfo"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
