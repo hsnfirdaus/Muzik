@@ -1,2 +1,5 @@
 # Muzik
-Just simple desktop application that i created for learning purpose only
+
+![Preview application](preview.png)
+
+Simple Desktop Application for Music Player using WinUI 3.
