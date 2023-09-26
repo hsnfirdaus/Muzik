@@ -163,7 +163,7 @@ namespace Muzik
 			ContentDialog dialog = new()
 			{
 				Title = "Informasi!",
-				Content = $"Program Dibuat oleh Muhammad Hasan Firdaus. Masak bikin gini aja gak bisa bang manson! :v",
+				Content = $"Program Dibuat oleh Muhammad Hasan Firdaus.",
 				CloseButtonText = "Ok"
 			};
 			dialog.XamlRoot = TopTitle.XamlRoot;
